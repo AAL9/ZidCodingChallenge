@@ -1,0 +1,52 @@
+{%extends 'main.html'%} {%block content%}
+<h1>Create Waybill</h1>
+<form method="POST" action="">
+  {% csrf_token %}
+  <div class="courier-bar">
+    <input type="radio" id="fedex" name="courier" value="FedEx" />
+    <label for="fedex" class="courier">FedEx</label>
+    <input type="radio" id="smsa" name="courier" value="Smsa" />
+    <label for="smsa" class="courier">Smsa</label>
+    <input type="radio" id="spl" name="courier" value="SPL" />
+    <label for="spl" class="courier">SPL</label>
+    <input type="radio" id="aramex" name="courier" value="Aramex" />
+    <label for="aramex" class="courier">Aramex</label>
+  </div>
+
+  <table class="orders-table">
+    <thead>
+      <tr>
+        <th>Select Order</th>
+        <th>Order ID</th>
+        <th>Product Name</th>
+        <th>Order Created</th>
+        <th>Shipping From</th>
+        <th>Shipping To</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td>
+          <input
+            type="checkbox"
+            class="order-checkbox"
+            name="order"
+            id="order-{{order.id}}"
+          />
+        </td>
+        <td>{{order.id}}</td>
+        <td>{{order.productName}}</td>
+        <td>{{order.orderCreated}}</td>
+        <td>{{order.shippingFrom}}</td>
+        <td>{{order.shippingTo}}</td>
+        <td>{{order.status}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button type="submit">Submit</button>
+</form>
+
+{%endblock content%}
